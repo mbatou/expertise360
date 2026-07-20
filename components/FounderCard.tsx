@@ -4,6 +4,7 @@ import { ArrowRight, BadgeCheck, FileText } from "lucide-react";
 import { founderCard } from "@/content/team";
 import { getIcon } from "./ui/icons";
 import { Avatar } from "./ui/Avatar";
+import { LinkedInIcon } from "./ui/LinkedInIcon";
 import { Tag } from "./ui/Tag";
 
 export function FounderCard() {
@@ -40,15 +41,27 @@ export function FounderCard() {
         ))}
       </ul>
 
-      {founderCard.cvUrl && (
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+        {founderCard.cvUrl && (
+          <a
+            href={founderCard.cvUrl}
+            className="inline-flex items-center gap-2 text-sm font-semibold text-gold transition-colors hover:text-gold-soft"
+          >
+            <FileText className="h-4 w-4" aria-hidden="true" />
+            Télécharger le CV (PDF)
+          </a>
+        )}
         <a
-          href={founderCard.cvUrl}
+          href={founderCard.linkedin}
+          rel="noopener noreferrer"
+          target="_blank"
           className="inline-flex items-center gap-2 text-sm font-semibold text-gold transition-colors hover:text-gold-soft"
         >
-          <FileText className="h-4 w-4" aria-hidden="true" />
-          Télécharger le CV (PDF)
+          <LinkedInIcon />
+          LinkedIn
+          <span className="sr-only"> de Djibril Mbengue (nouvel onglet)</span>
         </a>
-      )}
+      </div>
 
       <Link
         href="/fondateur"

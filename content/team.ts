@@ -43,6 +43,7 @@ export const founderCard = {
   // Asset §11 : déposer /public/djibril-mbengue.jpg puis renseigner `photo`.
   photo: undefined as string | undefined,
   cvUrl: "/cv-djibril-mbengue.pdf" as string | undefined,
+  linkedin: "https://www.linkedin.com/in/djibril-mbengue-asmec-4b7a0442/",
 } as const;
 
 export const team: TeamMember[] = [

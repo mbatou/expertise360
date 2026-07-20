@@ -7,6 +7,7 @@ import { Header } from "@/components/Header";
 import { PageHero } from "@/components/PageHero";
 import { Avatar } from "@/components/ui/Avatar";
 import { getIcon } from "@/components/ui/icons";
+import { LinkedInIcon } from "@/components/ui/LinkedInIcon";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { founderPage } from "@/content/founderPage";
@@ -32,6 +33,7 @@ const jsonLd = {
       name: site.founder,
       jobTitle: founderCard.role,
       description: founderPage.bio,
+      sameAs: [founderCard.linkedin],
       worksFor: {
         "@type": "FinancialService",
         name: site.name,
@@ -96,6 +98,16 @@ export default function FounderPage() {
                     Télécharger le CV (PDF)
                   </a>
                 )}
+                <a
+                  href={founderCard.linkedin}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  className="inline-flex items-center gap-2 rounded-full border border-navy/20 px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-gold hover:text-gold-deep"
+                >
+                  <LinkedInIcon />
+                  Profil LinkedIn
+                  <span className="sr-only"> (nouvel onglet)</span>
+                </a>
               </div>
             </Reveal>
 

@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Expertise 360 — Site vitrine
 
-## Getting Started
+Site one-page du cabinet de conseil financier **Expertise 360** (Dakar) : stratégie, risque, financement, formation. Reconstruction complète sur un socle technique possédé et maintenable.
 
-First, run the development server:
+- **Stack** : Next.js (App Router, SSG) · TypeScript strict · Tailwind CSS 4 · Supabase (leads) · Resend (notifications) · lucide-react · next/font (Fraunces + Inter)
+- **Design** : palette navy + or exclusivement, pastilles d'icônes or, alternance de fonds clairs/sombres, animations douces respectant `prefers-reduced-motion`.
+
+## Démarrage
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env.local   # puis renseigner les valeurs
+npm run dev                  # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Sans `.env.local`, le site fonctionne entièrement ; seul l'envoi du formulaire renvoie une erreur propre avec l'e-mail de repli (`contact@expert-360.com`).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Variables d'environnement
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable | Rôle |
+| --- | --- |
+| `SUPABASE_URL` | URL du projet Supabase (Dashboard → Project Settings → API) |
+| `SUPABASE_SERVICE_ROLE_KEY` | Clé service role — **serveur uniquement**, jamais exposée au client |
+| `RESEND_API_KEY` | Clé API Resend pour la notification e-mail des leads |
+| `CONTACT_NOTIFICATION_EMAIL` | Adresse qui reçoit les notifications (ex. `contact@expert-360.com`) |
+| `CONTACT_FROM_EMAIL` | Expéditeur (domaine vérifié dans Resend) |
 
-## Learn More
+## Base de données (Supabase)
 
-To learn more about Next.js, take a look at the following resources:
+Exécuter la migration `supabase/migrations/0001_create_leads.sql` (SQL Editor du dashboard, ou CLI `supabase db push`). Elle crée la table `public.leads` avec RLS activée et **aucune policy publique** : les insertions passent exclusivement par la Server Action côté serveur (service role).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Formulaire de contact
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+`components/ContactForm.tsx` (client) → Server Action `app/actions/contact.ts` :
+validation **zod** côté serveur → insertion Supabase → e-mail Resend (non bloquant) → état succès/erreur affiché et annoncé (`role="status"`, `aria-live`). Honeypot anti-spam + rate-limit en mémoire par IP (5 requêtes / 10 min, best-effort en serverless).
 
-## Deploy on Vercel
+**Test réel avant mise en production** : soumettre le formulaire, vérifier la ligne dans `leads` et la réception de l'e-mail.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Contenu
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Tout le contenu vit dans `/content` (modules TypeScript typés, icônes Lucide référencées par nom — prêt à migrer vers un CMS sans refonte).
+
+> **⚠️ Contenu à compléter** — le fichier d'inventaire `Expertise360_Contenu_Reconstruction.md` (source de vérité du contenu) était introuvable lors de la reconstruction : absent du repo (vide au démarrage) et des sources accessibles ; le site `expert-360.com` était inaccessible depuis l'environnement de build. La structure (9 services, 8 secteurs, 4 étapes, icônes) et le positionnement proviennent de l'audit Pandorus ; les éléments suivants portent un `TODO:` visible ou provisoire à remplacer par le verbatim de l'inventaire :
+>
+> - `content/stats.ts` — les 3 statistiques autres que « 28 ans d'expérience » ;
+> - `content/team.ts` — noms, rôles et bios des 3 membres hors fondateur ; bio exacte du fondateur ;
+> - `content/site.ts` — titre/sous-titre exacts du hero, téléphone, adresse complète ;
+> - descriptions des services, secteurs, méthode et intros de section (texte provisoire fidèle au positionnement documenté) ;
+> - options « Type de mission » du formulaire (`content/contact.ts`).
+>
+> **Assets à déposer dans `/public`** : `djibril-mbengue.jpg` (puis renseigner `photo` dans `content/team.ts`) et `cv-djibril-mbengue.pdf` (puis renseigner `cvUrl`). En attendant, l'avatar à initiales s'affiche et le lien CV est masqué.
+
+## SEO & accessibilité
+
+- Metadata complètes (title, description, canonical, Open Graph, Twitter card), image OG 1200×630 générée (`app/opengraph-image.tsx`), favicon `.ico` + `.svg` + apple-touch-icon, `theme-color` navy.
+- JSON-LD `FinancialService` (Dakar, Afrique de l'Ouest, fondateur).
+- `sitemap.xml` et `robots.txt` générés.
+- HTML sémantique, skip-link, navigation clavier complète, menu mobile accessible (`aria-expanded`, fermeture Échap), labels associés à chaque champ, contrastes AA, `prefers-reduced-motion` respecté, aucun débordement à 320 px.
+
+Le favicon `.ico` se régénère avec `node scripts/generate-favicon.mjs`.
+
+## Déploiement (Vercel)
+
+1. Importer le repo dans Vercel (framework auto-détecté : Next.js).
+2. Renseigner les variables d'environnement ci-dessus (Production + Preview).
+3. Déployer. Le site est intégralement statique (SSG) ; seule la Server Action du formulaire s'exécute côté serveur.
+4. Brancher le domaine `expert-360.com` (et rediriger `www`).
+
+## Structure
+
+```
+app/            layout (fonts, métadonnées, JSON-LD, skip-link), page, actions,
+                sitemap, robots, opengraph-image, icônes
+components/     sections (Header, Hero, Stats, Services, ValueProps, FounderCard,
+                Team, Sectors, Method, Contact, ContactForm, Footer, MobileNav)
+components/ui/  Section, IconBadge, Button, Tag, Avatar, Reveal, registre d'icônes
+content/        contenu typé (site, services, valueProps, team, sectors, method,
+                stats, contact, footer)
+lib/            schema zod, client Supabase (serveur), rate-limit
+supabase/       migration SQL de la table leads
+```

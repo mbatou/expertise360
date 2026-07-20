@@ -7,6 +7,8 @@
   --color-navy-soft: #14315f;
   --color-gold: #c9a24b;
   --color-gold-soft: #e7d6a6;
+  /* Or foncé : accent lisible (AA) sur fonds clairs */
+  --color-gold-deep: #8a6b24;
   --color-ink: #1a2b4a;
   --color-slate: #5a6478;
   --color-surface: #f4f6fb;

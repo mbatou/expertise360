@@ -40,7 +40,11 @@ export function Section({
         {(eyebrow || title || description) && (
           <div className="mb-10 max-w-2xl sm:mb-14">
             {eyebrow && (
-              <p className="mb-3 text-sm font-semibold tracking-widest uppercase text-gold">
+              <p
+                className={`mb-3 text-sm font-semibold tracking-widest uppercase ${
+                  tone === "dark" ? "text-gold" : "text-gold-deep"
+                }`}
+              >
                 {eyebrow}
               </p>
             )}

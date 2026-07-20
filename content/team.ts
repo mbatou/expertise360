@@ -40,10 +40,9 @@ export const founderCard = {
     { label: "GROFIN — Investissement PME Afrique", icon: "briefcase" },
     { label: "Institutions financières — Sénégal", icon: "flag" },
   ] satisfies FounderCredential[],
-  // Assets §11 : déposer /public/djibril-mbengue.jpg et
-  // /public/cv-djibril-mbengue.pdf puis renseigner les chemins ci-dessous.
+  // Asset §11 : déposer /public/djibril-mbengue.jpg puis renseigner `photo`.
   photo: undefined as string | undefined,
-  cvUrl: undefined as string | undefined,
+  cvUrl: "/cv-djibril-mbengue.pdf" as string | undefined,
 } as const;
 
 export const team: TeamMember[] = [

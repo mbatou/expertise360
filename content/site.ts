@@ -39,9 +39,12 @@ export const hero = {
   // H1 : « l'excellence financière » mis en valeur en or (§2).
   titlePrefix: "Votre partenaire stratégique pour ",
   titleHighlight: "l'excellence financière",
-  subtitle: "Stratégie · Risque · Financement · Formation",
+  // Les 4 piliers (§2), rendus en chips.
+  pillars: ["Stratégie", "Risque", "Financement", "Formation"],
+  // Version condensée du paragraphe de l'inventaire (allégée à la demande
+  // du client — le texte long restait trop dense dans le hero).
   paragraph:
-    "Expertise 360 accompagne les institutions financières, les PME et les organisations internationales dans leur développement, la gestion de leurs risques et le renforcement de leurs capacités — avec une vision à 360° ancrée sur plus de 28 ans d'expérience terrain.",
+    "Nous accompagnons banques, IMF, PME et organisations internationales — avec une vision à 360° et plus de 28 ans d'expérience terrain.",
   primaryCta: { label: "Découvrir nos services", href: "#services" },
   secondaryCta: { label: "Prendre rendez-vous", href: "#contact" },
 } as const;

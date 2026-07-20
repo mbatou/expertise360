@@ -2,9 +2,10 @@ import { hero } from "@/content/site";
 import { ButtonLink } from "./ui/Button";
 
 /**
- * Hero centré. S'affiche sans animation d'entrée : il porte le LCP et doit
- * peindre immédiatement, avant hydratation. Le décor (halo or + anneaux 360°)
- * est purement décoratif.
+ * Hero centré et aéré : titre, piliers en chips, une phrase, deux CTA.
+ * S'affiche sans animation d'entrée : il porte le LCP et doit peindre
+ * immédiatement, avant hydratation. Le décor (halo or + anneaux 360°) est
+ * purement décoratif.
  */
 export function Hero() {
   return (
@@ -26,7 +27,7 @@ export function Hero() {
       </div>
 
       <div className="relative mx-auto flex w-full max-w-4xl flex-col items-center px-4 pt-20 pb-24 text-center sm:px-6 sm:pt-28 sm:pb-32">
-        <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-gold/30 bg-navy-soft/60 px-4 py-1.5 text-xs font-semibold tracking-widest text-gold-soft uppercase sm:text-sm">
+        <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-gold/30 bg-navy-soft/60 px-4 py-1.5 text-xs font-semibold tracking-widest text-gold-soft uppercase sm:text-sm">
           {hero.eyebrow}
         </p>
         <h1
@@ -36,14 +37,23 @@ export function Hero() {
           {hero.titlePrefix}
           <span className="text-gold">{hero.titleHighlight}</span>
         </h1>
-        <p className="font-display mt-6 text-lg font-semibold tracking-wide text-gold-soft sm:text-xl">
-          {hero.subtitle}
-        </p>
-        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/85">
+
+        <ul className="mt-8 flex flex-wrap items-center justify-center gap-2.5" aria-label="Nos quatre piliers">
+          {hero.pillars.map((pillar) => (
+            <li
+              key={pillar}
+              className="font-display rounded-full bg-navy-soft/70 px-4 py-1.5 text-sm font-semibold text-gold-soft ring-1 ring-gold/20 sm:text-base"
+            >
+              {pillar}
+            </li>
+          ))}
+        </ul>
+
+        <p className="mt-7 max-w-xl text-lg leading-relaxed text-white/80">
           {hero.paragraph}
         </p>
 
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+        <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
           <ButtonLink href={hero.primaryCta.href}>{hero.primaryCta.label}</ButtonLink>
           <ButtonLink href={hero.secondaryCta.href} variant="outline">
             {hero.secondaryCta.label}

@@ -1,8 +1,9 @@
 "use client";
 
 import { useActionState, useEffect, useRef } from "react";
+import { ArrowRight } from "lucide-react";
 import { submitContact, type ContactFormState } from "@/app/actions/contact";
-import { missionTypes } from "@/content/contact";
+import { contactForm, missionTypes } from "@/content/contact";
 import { Button } from "./ui/Button";
 
 const initialState: ContactFormState = { status: "idle" };
@@ -32,7 +33,17 @@ export function ContactForm() {
   }, [state]);
 
   return (
-    <form ref={formRef} action={formAction} noValidate className="flex flex-col gap-5">
+    <form
+      ref={formRef}
+      action={formAction}
+      noValidate
+      aria-labelledby="formulaire-titre"
+      className="flex flex-col gap-5 rounded-2xl bg-navy-soft/40 p-6 ring-1 ring-navy-soft sm:p-8"
+    >
+      <h3 id="formulaire-titre" className="font-display text-xl font-semibold text-white">
+        {contactForm.title}
+      </h3>
+
       {/* Honeypot anti-spam : masqué aux humains, hors tabulation. */}
       <div className="hidden" aria-hidden="true">
         <label htmlFor="site_web">Ne pas remplir ce champ</label>
@@ -42,13 +53,14 @@ export function ContactForm() {
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="nom" className={labelClass}>
-            Nom complet <span aria-hidden="true">*</span>
+            {contactForm.labels.nom} <span aria-hidden="true">*</span>
           </label>
           <input
             id="nom"
             name="nom"
             type="text"
             autoComplete="name"
+            placeholder={contactForm.placeholders.nom}
             required
             aria-required="true"
             aria-invalid={Boolean(errors.nom)}
@@ -60,13 +72,14 @@ export function ContactForm() {
 
         <div>
           <label htmlFor="organisation" className={labelClass}>
-            Organisation
+            {contactForm.labels.organisation}
           </label>
           <input
             id="organisation"
             name="organisation"
             type="text"
             autoComplete="organization"
+            placeholder={contactForm.placeholders.organisation}
             aria-invalid={Boolean(errors.organisation)}
             aria-describedby={errors.organisation ? "erreur-organisation" : undefined}
             className={fieldClass}
@@ -78,13 +91,14 @@ export function ContactForm() {
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="email" className={labelClass}>
-            E-mail <span aria-hidden="true">*</span>
+            {contactForm.labels.email} <span aria-hidden="true">*</span>
           </label>
           <input
             id="email"
             name="email"
             type="email"
             autoComplete="email"
+            placeholder={contactForm.placeholders.email}
             required
             aria-required="true"
             aria-invalid={Boolean(errors.email)}
@@ -96,10 +110,10 @@ export function ContactForm() {
 
         <div>
           <label htmlFor="type_mission" className={labelClass}>
-            Type de mission
+            {contactForm.labels.type_mission}
           </label>
           <select id="type_mission" name="type_mission" className={fieldClass} defaultValue="">
-            <option value="">Sélectionner…</option>
+            <option value="">{contactForm.placeholders.type_mission}</option>
             {missionTypes.map((type) => (
               <option key={type} value={type}>
                 {type}
@@ -111,12 +125,13 @@ export function ContactForm() {
 
       <div>
         <label htmlFor="message" className={labelClass}>
-          Votre message <span aria-hidden="true">*</span>
+          {contactForm.labels.message} <span aria-hidden="true">*</span>
         </label>
         <textarea
           id="message"
           name="message"
           rows={5}
+          placeholder={contactForm.placeholders.message}
           required
           aria-required="true"
           aria-invalid={Boolean(errors.message)}
@@ -128,7 +143,8 @@ export function ContactForm() {
 
       <div>
         <Button type="submit" disabled={pending}>
-          {pending ? "Envoi en cours…" : "Envoyer la demande"}
+          {pending ? "Envoi en cours…" : contactForm.submit}
+          {!pending && <ArrowRight className="h-4 w-4" aria-hidden="true" />}
         </Button>
       </div>
 

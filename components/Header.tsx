@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { nav, site } from "@/content/site";
+import { nav, navCta } from "@/content/site";
+import { Logo } from "./ui/Logo";
 import { MobileNav } from "./MobileNav";
 
 /**
@@ -26,13 +27,8 @@ export function Header() {
       }`}
     >
       <div className="mx-auto flex h-20 w-full max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-        <Link href="#top" className="flex min-w-0 items-baseline gap-2">
-          <span className="font-display text-xl font-bold tracking-tight whitespace-nowrap">
-            {site.name}
-          </span>
-          <span className="hidden text-xs font-medium tracking-widest text-gold-soft uppercase sm:inline">
-            {site.tagline}
-          </span>
+        <Link href="#top" aria-label="Expertise 360 — retour en haut de page">
+          <Logo />
         </Link>
 
         <nav aria-label="Navigation principale" className="hidden md:block">
@@ -49,10 +45,10 @@ export function Header() {
             ))}
             <li>
               <Link
-                href="#contact"
+                href={navCta.href}
                 className="rounded-full bg-gold px-4 py-2 text-sm font-semibold text-navy-deep transition-colors hover:bg-gold-soft"
               >
-                Nous contacter
+                {navCta.label}
               </Link>
             </li>
           </ul>

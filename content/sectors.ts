@@ -1,8 +1,4 @@
-/**
- * Les 8 secteurs. Intitulés et icônes issus de la table de correspondance de
- * l'audit Pandorus (§6.3) : banques, IMF, PME, agro, international, fonds,
- * régulateurs, finance verte.
- */
+/** Les 8 secteurs — verbatim de l'inventaire (§7), icônes du champ `icon`. */
 
 export type Sector = {
   title: string;
@@ -10,20 +6,19 @@ export type Sector = {
 };
 
 export const sectorsIntro = {
-  eyebrow: "Secteurs d'intervention",
-  title: "Au service de l'écosystème financier africain",
-  // TODO: intro de section verbatim de l'inventaire.
+  eyebrow: "Nos marchés cibles",
+  title: "Secteurs Accompagnés",
   description:
-    "Des banques commerciales aux régulateurs, nous intervenons sur toute la chaîne de valeur financière.",
+    "Nous intervenons auprès d'un large spectre d'organisations dans le secteur financier africain et international.",
 } as const;
 
 export const sectors: Sector[] = [
-  { title: "Banques", icon: "landmark" },
-  { title: "Institutions de microfinance", icon: "users" },
-  { title: "PME", icon: "briefcase" },
-  { title: "Agro-industrie", icon: "wheat" },
+  { title: "Banques commerciales", icon: "landmark" },
+  { title: "Institutions de microfinance (IMF)", icon: "users" },
+  { title: "PME & Entreprises", icon: "briefcase" },
+  { title: "Agrobusiness & Finance agricole", icon: "wheat" },
   { title: "Organisations internationales", icon: "globe" },
   { title: "Fonds d'investissement", icon: "trending-up" },
-  { title: "Régulateurs", icon: "scale" },
-  { title: "Finance verte", icon: "leaf" },
+  { title: "Régulateurs & Banques centrales", icon: "scale" },
+  { title: "Finance verte & Impact", icon: "leaf" },
 ];

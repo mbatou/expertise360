@@ -3,7 +3,9 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
-import { nav } from "@/content/site";
+import { nav, navCta } from "@/content/site";
+
+const mobileItems = [...nav, navCta];
 
 /**
  * Menu mobile accessible (brief §9) : aria-expanded/aria-controls, fermeture à
@@ -53,7 +55,7 @@ export function MobileNav() {
       >
         <nav aria-label="Navigation mobile">
           <ul className="flex flex-col px-4 py-4">
-            {nav.map((item) => (
+            {mobileItems.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}

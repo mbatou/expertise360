@@ -1,8 +1,4 @@
-/**
- * Les 4 statistiques clés. Seule « 28 ans d'expérience » est documentée dans
- * l'audit Pandorus. Les 3 autres chiffres sont dans l'inventaire introuvable :
- * TODO visibles plutôt que des chiffres inventés (brief §2).
- */
+/** Les 4 statistiques clés — verbatim de l'inventaire (§3). */
 
 export type Stat = {
   value: string;
@@ -10,9 +6,8 @@ export type Stat = {
 };
 
 export const stats: Stat[] = [
-  { value: "28", label: "ans d'expérience" },
-  // TODO: valeurs et libellés exacts des 3 stats restantes (inventaire).
-  { value: "TODO", label: "TODO : stat de l'inventaire" },
-  { value: "TODO", label: "TODO : stat de l'inventaire" },
-  { value: "TODO", label: "TODO : stat de l'inventaire" },
+  { value: "28+", label: "Années d'expérience" },
+  { value: "4", label: "Organisations internationales" },
+  { value: "360°", label: "Couverture des besoins" },
+  { value: "2", label: "Fonds d'investissement gérés" },
 ];

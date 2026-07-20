@@ -1,27 +1,20 @@
 /**
  * Contenu global du site — coordonnées, navigation, hero, SEO.
- *
- * NOTE CONTENU : le fichier d'inventaire `Expertise360_Contenu_Reconstruction.md`
- * était introuvable au moment de la reconstruction (repo vide, fichier absent des
- * sources accessibles). Les textes ci-dessous proviennent de l'audit Pandorus
- * (positionnement, signaux de confiance, correctifs §13) ; les éléments marqués
- * `TODO:` sont à remplacer par le contenu verbatim de l'inventaire dès qu'il
- * est disponible — ne pas inventer de faits (chiffres, noms, téléphone).
+ * Source de vérité : Expertise360_Contenu_Reconstruction.md (racine du repo),
+ * contenu repris verbatim (§1, §2, §9, §13).
  */
 
 export const site = {
   name: "Expertise 360",
-  // Jamais « Expert 360 » — signature géographique recommandée par l'audit.
   tagline: "Conseil financier · Dakar",
   url: "https://expert-360.com",
+  // §13.5 : e-mail aligné sur le domaine réel (jamais @expertise360.com).
   email: "contact@expert-360.com",
-  // TODO: numéro de téléphone à confirmer avec l'inventaire.
-  phone: "",
+  location: "Dakar, Sénégal · Afrique de l'Ouest",
+  coverage: "Sénégal · Zone UEMOA · International",
   address: {
     city: "Dakar",
     country: "Sénégal",
-    // TODO: adresse complète (rue, immeuble) à confirmer avec l'inventaire.
-    street: "",
   },
   founder: "Djibril Mbengue",
   areaServed: "Afrique de l'Ouest",
@@ -35,28 +28,26 @@ export const nav: NavItem[] = [
   { label: "Équipe", href: "#equipe" },
   { label: "Secteurs", href: "#secteurs" },
   { label: "Approche", href: "#approche" },
-  { label: "Contact", href: "#contact" },
 ];
 
+/** Item CTA de la nav (§1) — rendu en bouton distinct. */
+export const navCta: NavItem = { label: "Nous contacter", href: "#contact" };
+
 export const hero = {
-  eyebrow: "Cabinet de conseil financier — Dakar",
-  // TODO: titre et sous-titre verbatim de l'inventaire (texte provisoire fidèle
-  // au positionnement documenté : vision 360°, ancrage africain, standards
-  // internationaux).
-  title: "Une vision 360° du conseil financier en Afrique de l'Ouest",
-  subtitle:
-    "Stratégie, gestion des risques, financement et formation pour les banques, institutions de microfinance, PME et bailleurs internationaux — aux standards Bâle, BCEAO, COBAC et IFRS.",
-  badge: "28 ans d'expérience",
-  primaryCta: { label: "Discuter de votre projet", href: "#contact" },
-  secondaryCta: { label: "Découvrir nos services", href: "#services" },
-  trust: {
-    label: "Ils nous font confiance",
-    names: ["Banque Mondiale", "UNCDF", "Oikocredit", "GroFin"],
-  },
+  eyebrow: "Cabinet de Conseil Financier — Dakar · Afrique",
+  // H1 : « l'excellence financière » mis en valeur en or (§2).
+  titlePrefix: "Votre partenaire stratégique pour ",
+  titleHighlight: "l'excellence financière",
+  subtitle: "Stratégie · Risque · Financement · Formation",
+  paragraph:
+    "Expertise 360 accompagne les institutions financières, les PME et les organisations internationales dans leur développement, la gestion de leurs risques et le renforcement de leurs capacités — avec une vision à 360° ancrée sur plus de 28 ans d'expérience terrain.",
+  primaryCta: { label: "Découvrir nos services", href: "#services" },
+  secondaryCta: { label: "Prendre rendez-vous", href: "#contact" },
 } as const;
 
 export const seo = {
-  title: "Expertise 360 — Cabinet de conseil financier à Dakar",
+  title: "Expertise 360 — Cabinet de Conseil Financier à Dakar",
+  // Description proposée par l'inventaire (§13.3).
   description:
-    "Expertise 360, cabinet de conseil financier à Dakar : stratégie, gestion des risques, due diligence, mobilisation de financements et formation pour banques, IMF et PME en zone UEMOA et en Afrique de l'Ouest.",
+    "Expertise 360, cabinet de conseil financier à Dakar : stratégie, gestion du risque, financement et formation pour banques, IMF, PME et organisations de développement.",
 } as const;

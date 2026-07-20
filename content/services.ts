@@ -1,10 +1,10 @@
 /**
- * Les 9 services. Intitulés et icônes Lucide : correspondance documentée dans
- * l'audit Pandorus (§6.3). Descriptions : TODO — texte provisoire fidèle au
- * positionnement documenté, à remplacer par le verbatim de l'inventaire.
+ * Les 9 services — verbatim de l'inventaire (§4), icônes Lucide du champ
+ * `icon` de chaque item.
  */
 
 export type Service = {
+  id: string;
   title: string;
   description: string;
   /** Nom d'icône Lucide (kebab-case), résolu dans components/ui/icons.ts */
@@ -12,66 +12,74 @@ export type Service = {
 };
 
 export const servicesIntro = {
-  eyebrow: "Nos services",
-  title: "Un accompagnement complet, de la stratégie au financement",
-  // TODO: intro de section verbatim de l'inventaire.
+  eyebrow: "Ce que nous faisons",
+  title: "Nos Domaines d'Intervention",
   description:
-    "Neuf domaines d'intervention couvrant l'ensemble du cycle de vie des institutions financières et des entreprises.",
+    "Un spectre complet d'expertises au service des institutions financières, des PME et des projets de développement en Afrique et à l'international.",
 } as const;
 
 export const services: Service[] = [
   {
-    title: "Plans stratégiques",
+    id: "plans-strategiques",
+    title: "Élaboration de Plans Stratégiques",
     icon: "line-chart",
     description:
-      "Élaboration de plans stratégiques et de business plans alignés sur les réalités du marché ouest-africain.",
+      "Accompagnement dans la conception de plans de développement à 3-5 ans : diagnostic stratégique (SWOT/PESTEL), définition des axes prioritaires, tableaux de bord et BSC pour institutions financières et PME.",
   },
   {
-    title: "Gestion des risques",
+    id: "gestion-risques",
+    title: "Gestion des Risques Financiers",
     icon: "shield-check",
     description:
-      "Dispositifs de gestion des risques conformes aux standards Bâle et aux exigences BCEAO et COBAC.",
+      "Mise en place et renforcement de dispositifs de gestion des risques (crédit, liquidité, marché, opérationnel) conformes aux normes BCEAO, COBAC et standards internationaux Bâle II/III.",
   },
   {
-    title: "Produits financiers",
+    id: "produits-financiers",
+    title: "Développement de Produits Financiers",
     icon: "coins",
     description:
-      "Conception et déploiement de produits financiers adaptés aux besoins des clientèles bancaires et microfinance.",
+      "Conception de produits adaptés aux besoins spécifiques : finance agricole, produits de microfinance, instruments de financement des PME, produits d'épargne et de crédit innovants.",
   },
   {
-    title: "Analyse & due diligence",
+    id: "analyse-due-diligence",
+    title: "Analyse Financière & Due Diligence",
     icon: "search-check",
     description:
-      "Analyses financières et missions de due diligence pour investisseurs, bailleurs et institutions.",
+      "Diagnostic approfondi de la santé financière des organisations, évaluation avant investissement, notation interne, analyse de portefeuille et recommandations stratégiques d'optimisation.",
   },
   {
-    title: "Mobilisation de financements",
+    id: "mobilisation-financements",
+    title: "Recherche & Mobilisation de Financements",
     icon: "hand-coins",
     description:
-      "Accompagnement dans la levée de ressources auprès des bailleurs et investisseurs internationaux.",
+      "Identification des sources de financement adaptées (bailleurs multilatéraux, fonds d'impact, marchés financiers), montage de dossiers et accompagnement dans les négociations de financement.",
   },
   {
-    title: "Gestion du changement",
+    id: "gestion-changement",
+    title: "Gestion du Changement",
     icon: "refresh-cw",
     description:
-      "Conduite du changement et transformation organisationnelle des institutions financières.",
+      "Élaboration de plans de conduite du changement pour l'appropriation de projets de transformation interne, digitalisation et réformes organisationnelles au sein des institutions financières.",
   },
   {
-    title: "Formation & intelligence artificielle",
+    id: "formation-ia",
+    title: "Formation : IA & Gestion des Risques",
     icon: "brain-circuit",
     description:
-      "Programmes de formation, y compris sur les usages de l'intelligence artificielle en finance.",
+      "Programmes de renforcement de capacités sur l'utilisation de l'Intelligence Artificielle dans la gestion des risques : scoring crédit, détection de fraude, analyse prédictive et modélisation.",
   },
   {
-    title: "Inclusion & finance verte",
+    id: "inclusion-finance-verte",
+    title: "Inclusion Financière & Finance Verte",
     icon: "sprout",
     description:
-      "Stratégies d'inclusion financière et de finance verte pour un développement durable.",
+      "Études, évaluations et stratégies d'inclusion financière ; développement de produits et d'indicateurs de performance pour la finance verte et l'investissement à impact social et environnemental.",
   },
   {
-    title: "Conseil aux IMF",
+    id: "conseil-imf",
+    title: "Conseil aux Institutions de Microfinance",
     icon: "building-2",
     description:
-      "Appui-conseil dédié aux institutions de microfinance : gouvernance, conformité, performance.",
+      "Appui institutionnel global aux IMF : gouvernance, gestion du portefeuille à risque, conformité réglementaire, digitalisation des opérations et amélioration de la performance sociale.",
   },
 ];

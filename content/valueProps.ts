@@ -1,8 +1,6 @@
 /**
- * Les 5 points de valeur ajoutée. Fondés sur le positionnement documenté dans
- * l'audit Pandorus (vision 360°, ancrage terrain africain, standards
- * internationaux, 28 ans, réseau de bailleurs).
- * TODO: aligner le verbatim sur l'inventaire dès disponibilité.
+ * Les 5 points de valeur ajoutée — verbatim de l'inventaire (§5).
+ * Icônes : choix Lucide cohérent avec le design system (pastilles or).
  */
 
 export type ValueProp = {
@@ -13,38 +11,40 @@ export type ValueProp = {
 
 export const valuePropsIntro = {
   eyebrow: "Notre valeur ajoutée",
-  title: "Pourquoi Expertise 360",
+  title: "Une Expertise Forgée au Plus Haut Niveau",
+  description:
+    "Expertise 360 conjugue la rigueur des standards internationaux et la connaissance intime des réalités africaines pour des recommandations véritablement actionnables.",
 } as const;
 
 export const valueProps: ValueProp[] = [
   {
-    title: "Vision 360°",
-    icon: "compass",
-    description:
-      "Une approche intégrée qui relie stratégie, risque, financement et organisation — plutôt que des expertises en silos.",
-  },
-  {
-    title: "Ancrage terrain africain",
-    icon: "map-pin",
-    description:
-      "Une connaissance directe des marchés d'Afrique de l'Ouest et des réalités opérationnelles des institutions locales.",
-  },
-  {
     title: "Standards internationaux",
     icon: "badge-check",
     description:
-      "Des livrables aux normes Bâle, BCEAO, COBAC et IFRS, exigés par les régulateurs et les bailleurs.",
+      "Maîtrise des normes Bâle, BCEAO, COBAC, IFRS et des meilleures pratiques mondiales du secteur financier.",
   },
   {
-    title: "28 ans d'expérience",
-    icon: "award",
+    title: "Connaissance du terrain africain",
+    icon: "map-pin",
     description:
-      "Des missions conduites en direct par des seniors, forts de près de trois décennies dans la finance africaine.",
+      "Compréhension fine des marchés UEMOA, des contraintes de liquidité et des dynamiques des PME locales.",
   },
   {
-    title: "Réseau de bailleurs internationaux",
+    title: "Réseau institutionnel",
     icon: "globe",
     description:
-      "Des références auprès de la Banque Mondiale, de l'UNCDF, d'Oikocredit et de GroFin.",
+      "Relations établies avec les bailleurs multilatéraux, fonds d'impact et institutions de développement (Banque Mondiale, UNCDF…).",
+  },
+  {
+    title: "Approche sur mesure",
+    icon: "sliders-horizontal",
+    description:
+      "Chaque mission est structurée selon les spécificités de l'organisation : taille, secteur, enjeux stratégiques et contexte réglementaire.",
+  },
+  {
+    title: "Transfert de compétences",
+    icon: "graduation-cap",
+    description:
+      "Toutes nos interventions intègrent un volet formation pour pérenniser les acquis au sein des équipes.",
   },
 ];

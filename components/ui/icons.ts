@@ -1,13 +1,13 @@
 import {
-  Award,
   BadgeCheck,
   BarChart3,
   BrainCircuit,
   Briefcase,
   Building2,
   Coins,
-  Compass,
+  Flag,
   Globe,
+  GraduationCap,
   HandCoins,
   Landmark,
   Leaf,
@@ -20,6 +20,7 @@ import {
   SearchCheck,
   Settings,
   ShieldCheck,
+  SlidersHorizontal,
   Sprout,
   TrendingUp,
   Users,
@@ -54,10 +55,11 @@ const registry: Record<string, LucideIcon> = {
   "pen-tool": PenTool,
   settings: Settings,
   "bar-chart-3": BarChart3,
-  compass: Compass,
   "map-pin": MapPin,
   "badge-check": BadgeCheck,
-  award: Award,
+  "sliders-horizontal": SlidersHorizontal,
+  "graduation-cap": GraduationCap,
+  flag: Flag,
 };
 
 export function getIcon(name: string): LucideIcon {

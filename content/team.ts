@@ -1,63 +1,79 @@
 /**
- * L'équipe — 4 membres. Seul le fondateur (Djibril Mbengue) est documenté dans
- * l'audit Pandorus. Les 3 autres membres sont dans l'inventaire introuvable :
- * TODO visibles plutôt qu'inventer des noms (brief §2).
+ * L'équipe (4 membres) et la carte fondateur — verbatim de l'inventaire
+ * (§5 carte fondateur, §6 équipe).
  */
 
 export type TeamMember = {
   name: string;
   role: string;
   bio: string;
+  tags: string[];
   /** Chemin public de la photo, si disponible (sinon avatar à initiales). */
   photo?: string;
+  /** Chemin public du CV PDF, si disponible. */
+  cvUrl?: string;
+  /** Mention affichée quand le CV n'est pas encore disponible. */
+  cvStatus?: string;
   isFounder?: boolean;
 };
 
 export const teamIntro = {
-  eyebrow: "Notre équipe",
-  title: "Des seniors de la finance africaine",
-  // TODO: intro de section verbatim de l'inventaire.
+  eyebrow: "Les hommes et femmes derrière notre expertise",
+  title: "Notre Équipe",
   description:
-    "Une équipe resserrée de consultants seniors, mobilisée en direct sur chaque mission.",
+    "Des professionnels aguerris, formés aux meilleurs standards internationaux, engagés pour le développement financier de l'Afrique.",
+  joinLine: "Vous souhaitez rejoindre l'équipe ?",
+  joinCta: { label: "Contactez-nous", href: "#contact" },
 } as const;
 
+export type FounderCredential = { label: string; icon: string };
+
 export const founderCard = {
-  name: "Djibril Mbengue",
-  role: "Fondateur",
-  // TODO: bio verbatim du fondateur (inventaire). Texte provisoire fondé sur
-  // l'audit : 28 ans d'expérience, missions Banque Mondiale, UNCDF, Oikocredit,
-  // GroFin, standards Bâle/BCEAO/COBAC/IFRS.
-  bio: "Près de trois décennies d'expérience dans la finance en Afrique de l'Ouest, au service des banques, des institutions de microfinance et des bailleurs internationaux — dont la Banque Mondiale, l'UNCDF, Oikocredit et GroFin.",
-  // Déposer le fichier dans /public puis renseigner : "/djibril-mbengue.jpg"
+  name: "Djibril MBENGUE",
+  role: "Fondateur & Consultant Principal",
+  subtitle: "Expert en Finance & Investissement",
+  experienceBadge: "28 ans d'expérience",
+  credentials: [
+    { label: "Banque Mondiale — Washington, D.C.", icon: "globe" },
+    { label: "UNCDF — Finance Inclusive", icon: "globe" },
+    { label: "OIKOCREDIT Sénégal — Fonds d'Impact", icon: "briefcase" },
+    { label: "GROFIN — Investissement PME Afrique", icon: "briefcase" },
+    { label: "Institutions financières — Sénégal", icon: "flag" },
+  ] satisfies FounderCredential[],
+  // Assets §11 : déposer /public/djibril-mbengue.jpg et
+  // /public/cv-djibril-mbengue.pdf puis renseigner les chemins ci-dessous.
   photo: undefined as string | undefined,
-  // Déposer le fichier dans /public puis renseigner : "/cv-djibril-mbengue.pdf"
   cvUrl: undefined as string | undefined,
 } as const;
 
 export const team: TeamMember[] = [
   {
-    name: "Djibril Mbengue",
-    role: "Fondateur",
-    bio: "28 ans d'expérience en finance et conseil en Afrique de l'Ouest.",
+    name: "Djibril MBENGUE",
+    role: "Fondateur & Consultant Principal",
     isFounder: true,
-    // TODO: photo — déposer /public/djibril-mbengue.jpg puis renseigner ici.
+    bio: "Expert en finance d'entreprise, gestion des risques et investissement à impact. 28 ans d'expérience entre Dakar, Washington et les marchés africains.",
+    tags: ["Gestion des risques", "Stratégie", "Impact Finance", "PME & IMF"],
+    // Assets §11 : photo et CV à déposer dans /public (voir founderCard).
   },
   {
-    // TODO: nom, rôle et bio du membre 2 (inventaire introuvable).
-    name: "TODO : membre de l'équipe",
-    role: "TODO : fonction",
-    bio: "TODO : bio à reprendre de l'inventaire de contenu.",
+    name: "Tamsir FALL",
+    role: "Consultant Senior — Finance Islamique & Microfinance",
+    bio: "Spécialiste de la finance islamique et de l'assistance technique aux institutions de microfinance. Expert en développement de nouveaux produits agricoles et en études et recherche appliquée au secteur financier.",
+    tags: ["Finance islamique", "Microfinance", "Produits agricoles", "Études & Recherche"],
+    cvStatus: "CV à venir",
   },
   {
-    // TODO: nom, rôle et bio du membre 3 (inventaire introuvable).
-    name: "TODO : membre de l'équipe",
-    role: "TODO : fonction",
-    bio: "TODO : bio à reprendre de l'inventaire de contenu.",
+    name: "Mamadou MBENGUE",
+    role: "Consultant Senior — Stratégie & Innovation Digitale",
+    bio: "Expert en stratégie d'entreprise et gestion des PME. Spécialiste de la structuration de financements complexes et de l'exploitation des données et de l'intelligence artificielle au service de la performance financière.",
+    tags: ["Stratégie", "Gestion PME", "Structuration financière", "Data & IA"],
+    cvStatus: "CV à venir",
   },
   {
-    // TODO: nom, rôle et bio du membre 4 (inventaire introuvable).
-    name: "TODO : membre de l'équipe",
-    role: "TODO : fonction",
-    bio: "TODO : bio à reprendre de l'inventaire de contenu.",
+    name: "Diarry SOW",
+    role: "Experte Seniore — Sécurité & Gestion des Risques",
+    bio: "Experte en sécurité active et passive des institutions financières et en gestion des risques opérationnels. Spécialiste du fundraising et de la redevabilité des organisations auprès de leurs bailleurs et partenaires.",
+    tags: ["Sécurité institutionnelle", "Gestion des risques", "Fundraising", "Redevabilité"],
+    cvStatus: "CV à venir",
   },
 ];

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { team, teamIntro } from "@/content/team";
 import { Avatar } from "./ui/Avatar";
 import { Reveal } from "./ui/Reveal";
@@ -15,7 +16,7 @@ export function Team() {
     >
       <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {team.map((member, i) => (
-          <li key={`${member.name}-${i}`}>
+          <li key={member.name}>
             <Reveal delay={i * 80} className="h-full">
               <article className="flex h-full flex-col items-center gap-4 rounded-2xl bg-white p-6 text-center shadow-md shadow-navy/5 ring-1 ring-navy/5">
                 <Avatar name={member.name} photo={member.photo} size={96} />
@@ -25,11 +26,34 @@ export function Team() {
                 </div>
                 {member.isFounder && <Tag>Fondateur</Tag>}
                 <p className="text-sm leading-relaxed text-slate">{member.bio}</p>
+                <ul className="mt-auto flex flex-wrap justify-center gap-1.5">
+                  {member.tags.map((tag) => (
+                    <li
+                      key={tag}
+                      className="rounded-full bg-surface px-2.5 py-1 text-xs font-medium text-ink ring-1 ring-navy/10"
+                    >
+                      {tag}
+                    </li>
+                  ))}
+                </ul>
+                {member.cvStatus && !member.cvUrl && (
+                  <p className="text-xs font-medium text-slate italic">{member.cvStatus}</p>
+                )}
               </article>
             </Reveal>
           </li>
         ))}
       </ul>
+
+      <p className="mt-10 text-center text-slate">
+        {teamIntro.joinLine}{" "}
+        <Link
+          href={teamIntro.joinCta.href}
+          className="font-semibold text-gold-deep underline-offset-4 transition-colors hover:text-ink hover:underline"
+        >
+          {teamIntro.joinCta.label}
+        </Link>
+      </p>
     </Section>
   );
 }

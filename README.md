@@ -38,17 +38,9 @@ validation **zod** côté serveur → insertion Supabase → e-mail Resend (non 
 
 ## Contenu
 
-Tout le contenu vit dans `/content` (modules TypeScript typés, icônes Lucide référencées par nom — prêt à migrer vers un CMS sans refonte).
+Tout le contenu vit dans `/content` (modules TypeScript typés, icônes Lucide référencées par nom — prêt à migrer vers un CMS sans refonte). La source de vérité est `Expertise360_Contenu_Reconstruction.md` (racine du repo) : le texte en est repris verbatim.
 
-> **⚠️ Contenu à compléter** — le fichier d'inventaire `Expertise360_Contenu_Reconstruction.md` (source de vérité du contenu) était introuvable lors de la reconstruction : absent du repo (vide au démarrage) et des sources accessibles ; le site `expert-360.com` était inaccessible depuis l'environnement de build. La structure (9 services, 8 secteurs, 4 étapes, icônes) et le positionnement proviennent de l'audit Pandorus ; les éléments suivants portent un `TODO:` visible ou provisoire à remplacer par le verbatim de l'inventaire :
->
-> - `content/stats.ts` — les 3 statistiques autres que « 28 ans d'expérience » ;
-> - `content/team.ts` — noms, rôles et bios des 3 membres hors fondateur ; bio exacte du fondateur ;
-> - `content/site.ts` — titre/sous-titre exacts du hero, téléphone, adresse complète ;
-> - descriptions des services, secteurs, méthode et intros de section (texte provisoire fidèle au positionnement documenté) ;
-> - options « Type de mission » du formulaire (`content/contact.ts`).
->
-> **Assets à déposer dans `/public`** : `djibril-mbengue.jpg` (puis renseigner `photo` dans `content/team.ts`) et `cv-djibril-mbengue.pdf` (puis renseigner `cvUrl`). En attendant, l'avatar à initiales s'affiche et le lien CV est masqué.
+> **Assets à déposer dans `/public`** (inventaire §11) : `djibril-mbengue.jpg` et `cv-djibril-mbengue.pdf` — puis renseigner `photo` et `cvUrl` dans `content/team.ts` (`founderCard`). En attendant, l'avatar à initiales s'affiche et le lien CV est masqué. Les CV des trois autres consultants sont « à venir ».
 
 ## SEO & accessibilité
 

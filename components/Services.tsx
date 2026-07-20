@@ -16,7 +16,7 @@ export function Services() {
         {services.map((service, i) => (
           <li key={service.title}>
             <Reveal delay={(i % 3) * 80} className="h-full">
-              <article className="flex h-full flex-col gap-4 rounded-2xl bg-white p-6 shadow-md shadow-navy/5 ring-1 ring-navy/5">
+              <article className="flex h-full flex-col gap-4 rounded-2xl bg-white p-6 shadow-md shadow-navy/5 ring-1 ring-navy/5 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-navy/10 hover:ring-gold/40">
                 <IconBadge icon={service.icon} />
                 <h3 className="font-display text-xl font-semibold">{service.title}</h3>
                 <p className="text-sm leading-relaxed text-slate">{service.description}</p>

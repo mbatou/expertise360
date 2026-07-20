@@ -38,7 +38,7 @@ export function Section({
     >
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
         {(eyebrow || title || description) && (
-          <div className="mb-10 max-w-2xl sm:mb-14">
+          <div className="mx-auto mb-10 max-w-2xl text-center sm:mb-14">
             {eyebrow && (
               <p
                 className={`mb-3 text-sm font-semibold tracking-widest uppercase ${

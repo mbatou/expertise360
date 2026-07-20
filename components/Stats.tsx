@@ -4,10 +4,10 @@ import { Reveal } from "./ui/Reveal";
 export function Stats() {
   return (
     <section aria-label="Chiffres clés" className="bg-navy-deep text-white">
-      <div className="mx-auto grid w-full max-w-6xl grid-cols-2 gap-8 px-4 py-12 sm:px-6 lg:grid-cols-4">
+      <div className="mx-auto grid w-full max-w-6xl grid-cols-2 gap-x-4 gap-y-8 px-4 py-12 sm:px-6 lg:grid-cols-4">
         {stats.map((stat, i) => (
           <Reveal key={stat.label} delay={i * 80}>
-            <div className="text-center lg:text-left">
+            <div className={`text-center ${i > 0 ? "lg:border-l lg:border-navy-soft" : ""}`}>
               <p className="font-display text-4xl font-bold text-gold sm:text-5xl">
                 {stat.value}
               </p>

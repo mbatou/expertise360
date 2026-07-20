@@ -15,7 +15,7 @@ export function Method() {
         {method.map((step, i) => (
           <li key={step.title}>
             <Reveal delay={i * 80} className="h-full">
-              <div className="flex h-full flex-col gap-4 rounded-2xl bg-surface p-6 ring-1 ring-navy/5">
+              <div className="flex h-full flex-col gap-4 rounded-2xl bg-surface p-6 ring-1 ring-navy/5 transition duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-navy/10 hover:ring-gold/40">
                 <div className="flex items-center justify-between">
                   <IconBadge icon={step.icon} />
                   <span className="font-display text-4xl font-bold text-gold-soft" aria-hidden="true">

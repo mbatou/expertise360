@@ -18,7 +18,7 @@ export function Team() {
         {team.map((member, i) => (
           <li key={member.name}>
             <Reveal delay={i * 80} className="h-full">
-              <article className="flex h-full flex-col items-center gap-4 rounded-2xl bg-white p-6 text-center shadow-md shadow-navy/5 ring-1 ring-navy/5">
+              <article className="flex h-full flex-col items-center gap-4 rounded-2xl bg-white p-6 text-center shadow-md shadow-navy/5 ring-1 ring-navy/5 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-navy/10 hover:ring-gold/40">
                 <Avatar name={member.name} photo={member.photo} size={96} />
                 <div>
                   <h3 className="font-display text-lg font-semibold">{member.name}</h3>

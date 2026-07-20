@@ -1,5 +1,6 @@
 import { createElement } from "react";
-import { BadgeCheck, FileText } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, BadgeCheck, FileText } from "lucide-react";
 import { founderCard } from "@/content/team";
 import { getIcon } from "./ui/icons";
 import { Avatar } from "./ui/Avatar";
@@ -48,6 +49,14 @@ export function FounderCard() {
           Télécharger le CV (PDF)
         </a>
       )}
+
+      <Link
+        href="/fondateur"
+        className="inline-flex items-center gap-2 text-sm font-semibold text-gold transition-colors hover:text-gold-soft"
+      >
+        Voir le profil complet
+        <ArrowRight className="h-4 w-4" aria-hidden="true" />
+      </Link>
     </article>
   );
 }

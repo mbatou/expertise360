@@ -23,7 +23,7 @@ export const teamIntro = {
   description:
     "Des professionnels aguerris, formés aux meilleurs standards internationaux, engagés pour le développement financier de l'Afrique.",
   joinLine: "Vous souhaitez rejoindre l'équipe ?",
-  joinCta: { label: "Contactez-nous", href: "#contact" },
+  joinCta: { label: "Contactez-nous", href: "/#contact" },
 } as const;
 
 export type FounderCredential = { label: string; icon: string };

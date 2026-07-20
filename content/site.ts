@@ -22,16 +22,17 @@ export const site = {
 
 export type NavItem = { label: string; href: string };
 
+/** Liens préfixés par « / » pour fonctionner depuis les pages satellites. */
 export const nav: NavItem[] = [
-  { label: "Services", href: "#services" },
-  { label: "Expertise", href: "#expertise" },
-  { label: "Équipe", href: "#equipe" },
-  { label: "Secteurs", href: "#secteurs" },
-  { label: "Approche", href: "#approche" },
+  { label: "Services", href: "/#services" },
+  { label: "Expertise", href: "/#expertise" },
+  { label: "Équipe", href: "/#equipe" },
+  { label: "Secteurs", href: "/#secteurs" },
+  { label: "Approche", href: "/#approche" },
 ];
 
 /** Item CTA de la nav (§1) — rendu en bouton distinct. */
-export const navCta: NavItem = { label: "Nous contacter", href: "#contact" };
+export const navCta: NavItem = { label: "Nous contacter", href: "/#contact" };
 
 export const hero = {
   eyebrow: "Cabinet de Conseil Financier — Dakar · Afrique",

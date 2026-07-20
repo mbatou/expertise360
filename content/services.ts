@@ -9,6 +9,8 @@ export type Service = {
   description: string;
   /** Nom d'icône Lucide (kebab-case), résolu dans components/ui/icons.ts */
   icon: string;
+  /** Page satellite dédiée (services phares uniquement). */
+  href?: string;
 };
 
 export const servicesIntro = {
@@ -30,6 +32,7 @@ export const services: Service[] = [
     id: "gestion-risques",
     title: "Gestion des Risques Financiers",
     icon: "shield-check",
+    href: "/services/gestion-risques",
     description:
       "Mise en place et renforcement de dispositifs de gestion des risques (crédit, liquidité, marché, opérationnel) conformes aux normes BCEAO, COBAC et standards internationaux Bâle II/III.",
   },
@@ -44,6 +47,7 @@ export const services: Service[] = [
     id: "analyse-due-diligence",
     title: "Analyse Financière & Due Diligence",
     icon: "search-check",
+    href: "/services/analyse-due-diligence",
     description:
       "Diagnostic approfondi de la santé financière des organisations, évaluation avant investissement, notation interne, analyse de portefeuille et recommandations stratégiques d'optimisation.",
   },
@@ -51,6 +55,7 @@ export const services: Service[] = [
     id: "mobilisation-financements",
     title: "Recherche & Mobilisation de Financements",
     icon: "hand-coins",
+    href: "/services/mobilisation-financements",
     description:
       "Identification des sources de financement adaptées (bailleurs multilatéraux, fonds d'impact, marchés financiers), montage de dossiers et accompagnement dans les négociations de financement.",
   },

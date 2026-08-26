@@ -21,13 +21,25 @@ Sans `.env.local`, le site fonctionne entièrement ; seul l'envoi du formulaire 
 | --- | --- |
 | `SUPABASE_URL` | URL du projet Supabase (Dashboard → Project Settings → API) |
 | `SUPABASE_SERVICE_ROLE_KEY` | Clé service role — **serveur uniquement**, jamais exposée au client |
+| `ADMIN_PASSWORD` | Mot de passe du backoffice `/admin` (articles & posts LinkedIn) |
+| `AUTH_SECRET` | Secret de signature du cookie de session admin (`openssl rand -base64 32`) |
 | `RESEND_API_KEY` | Clé API Resend pour la notification e-mail des leads |
 | `CONTACT_NOTIFICATION_EMAIL` | Adresse qui reçoit les notifications (ex. `contact@expert-360.com`) |
 | `CONTACT_FROM_EMAIL` | Expéditeur (domaine vérifié dans Resend) |
 
 ## Base de données (Supabase)
 
-Exécuter la migration `supabase/migrations/0001_create_leads.sql` (SQL Editor du dashboard, ou CLI `supabase db push`). Elle crée la table `public.leads` avec RLS activée et **aucune policy publique** : les insertions passent exclusivement par la Server Action côté serveur (service role).
+Exécuter les migrations `supabase/migrations/` dans l'ordre (SQL Editor du dashboard, ou CLI `supabase db push`) :
+
+- `0001_create_leads.sql` — table `leads` (formulaire de contact)
+- `0002_create_articles.sql` — table `articles` (page Articles & backoffice)
+
+Les deux tables ont la RLS activée et **aucune policy publique** : lectures et écritures passent exclusivement par le serveur Next.js (service role).
+
+## Articles & backoffice
+
+- **Public** : `/articles` liste les publications (articles natifs + posts LinkedIn embarqués via le lecteur officiel `linkedin.com/embed` — aucun scraping), `/articles/[slug]` affiche un article (markdown → HTML, JSON-LD `Article`). ISR 5 min + `revalidatePath` à chaque action admin (publication visible immédiatement).
+- **Backoffice `/admin`** (noindex, `disallow` robots) : connexion par mot de passe (`ADMIN_PASSWORD`, session cookie httpOnly signée HMAC avec `AUTH_SECRET`, 7 jours, rate-limit sur le login). Rédaction d'articles en markdown avec aperçu, brouillon/publication, ajout d'un post LinkedIn en collant son URL publique (aperçu embed immédiat).
 
 ## Formulaire de contact
 

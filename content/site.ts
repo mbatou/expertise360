@@ -29,6 +29,7 @@ export const nav: NavItem[] = [
   { label: "Équipe", href: "/#equipe" },
   { label: "Secteurs", href: "/#secteurs" },
   { label: "Approche", href: "/#approche" },
+  { label: "Articles", href: "/articles" },
 ];
 
 /** Item CTA de la nav (§1) — rendu en bouton distinct. */

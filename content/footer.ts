@@ -12,6 +12,7 @@ export const footer = {
         { label: "Nos services", href: "/#services" },
         { label: "Notre équipe", href: "/#equipe" },
         { label: "Le fondateur", href: "/fondateur" },
+        { label: "Articles & publications", href: "/articles" },
         { label: "Notre approche", href: "/#approche" },
       ],
     },

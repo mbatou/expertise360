@@ -12,8 +12,8 @@ import {
 } from "@/lib/admin-auth";
 import { getArticleById, slugify } from "@/lib/articles";
 import { linkedInEmbedUrl } from "@/lib/linkedin";
+import { getDb } from "@/lib/db";
 import { isRateLimited } from "@/lib/rate-limit";
-import { getSupabaseAdmin } from "@/lib/supabase";
 
 export type AdminActionState = {
   status: "idle" | "success" | "error";
@@ -26,7 +26,7 @@ const NOT_AUTHENTICATED: AdminActionState = {
 };
 const NOT_CONFIGURED: AdminActionState = {
   status: "error",
-  message: "Backoffice non configuré (SUPABASE_URL, ADMIN_PASSWORD, AUTH_SECRET).",
+  message: "Backoffice non configuré (DATABASE_URL, ADMIN_PASSWORD, AUTH_SECRET).",
 };
 
 /** Revalide les pages publiques impactées par un changement de publication. */
@@ -94,8 +94,8 @@ export async function saveArticle(
   formData: FormData,
 ): Promise<AdminActionState> {
   if (!(await isAdminAuthenticated())) return NOT_AUTHENTICATED;
-  const supabase = getSupabaseAdmin();
-  if (!supabase) return NOT_CONFIGURED;
+  const db = getDb();
+  if (!db) return NOT_CONFIGURED;
 
   const parsed = articleSchema.safeParse({
     id: (formData.get("id") as string) || undefined,
@@ -127,18 +127,29 @@ export async function saveArticle(
     status: input.status,
     published_at:
       publishedAt ?? (input.status === "published" ? new Date().toISOString() : null),
-    updated_at: new Date().toISOString(),
   };
 
   const previous = input.id ? await getArticleById(input.id) : null;
-  const { error } = input.id
-    ? await supabase.from("articles").update(row).eq("id", input.id)
-    : await supabase.from("articles").insert(row);
-
-  if (error) {
+  try {
+    if (input.id) {
+      await db.query(
+        `update articles
+         set title = $1, slug = $2, excerpt = $3, content = $4, status = $5,
+             published_at = $6, updated_at = now()
+         where id = $7`,
+        [row.title, row.slug, row.excerpt, row.content, row.status, row.published_at, input.id],
+      );
+    } else {
+      await db.query(
+        `insert into articles (type, title, slug, excerpt, content, status, published_at)
+         values ('article', $1, $2, $3, $4, $5, $6)`,
+        [row.title, row.slug, row.excerpt, row.content, row.status, row.published_at],
+      );
+    }
+  } catch (error) {
     console.error("saveArticle:", error);
     const message =
-      error.code === "23505"
+      (error as { code?: string }).code === "23505"
         ? `Le slug « ${slug} » est déjà utilisé par une autre publication.`
         : "Enregistrement impossible. Réessayez.";
     return { status: "error", message };
@@ -167,8 +178,8 @@ export async function saveLinkedInPost(
   formData: FormData,
 ): Promise<AdminActionState> {
   if (!(await isAdminAuthenticated())) return NOT_AUTHENTICATED;
-  const supabase = getSupabaseAdmin();
-  if (!supabase) return NOT_CONFIGURED;
+  const db = getDb();
+  if (!db) return NOT_CONFIGURED;
 
   const parsed = linkedInSchema.safeParse({
     title: formData.get("title"),
@@ -187,16 +198,19 @@ export async function saveLinkedInPost(
     };
   }
 
-  const { error } = await supabase.from("articles").insert({
-    type: "linkedin",
-    title: parsed.data.title,
-    linkedin_url: parsed.data.linkedin_url,
-    status: "published",
-    published_at: parsed.data.published_at
-      ? new Date(`${parsed.data.published_at}T12:00:00Z`).toISOString()
-      : new Date().toISOString(),
-  });
-  if (error) {
+  try {
+    await db.query(
+      `insert into articles (type, title, linkedin_url, status, published_at)
+       values ('linkedin', $1, $2, 'published', $3)`,
+      [
+        parsed.data.title,
+        parsed.data.linkedin_url,
+        parsed.data.published_at
+          ? new Date(`${parsed.data.published_at}T12:00:00Z`).toISOString()
+          : new Date().toISOString(),
+      ],
+    );
+  } catch (error) {
     console.error("saveLinkedInPost:", error);
     return { status: "error", message: "Enregistrement impossible. Réessayez." };
   }
@@ -211,26 +225,23 @@ export async function saveLinkedInPost(
 
 export async function setArticleStatus(formData: FormData): Promise<void> {
   if (!(await isAdminAuthenticated())) return;
-  const supabase = getSupabaseAdmin();
-  if (!supabase) return;
+  const db = getDb();
+  if (!db) return;
 
   const id = formData.get("id");
   const status = formData.get("status");
   if (typeof id !== "string" || (status !== "draft" && status !== "published")) return;
 
   const article = await getArticleById(id);
-  const { error } = await supabase
-    .from("articles")
-    .update({
-      status,
-      updated_at: new Date().toISOString(),
-      published_at:
-        status === "published"
-          ? (article?.published_at ?? new Date().toISOString())
-          : article?.published_at,
-    })
-    .eq("id", id);
-  if (error) {
+  try {
+    await db.query(
+      `update articles
+       set status = $1, updated_at = now(),
+           published_at = coalesce(published_at, case when $1 = 'published' then now() end)
+       where id = $2`,
+      [status, id],
+    );
+  } catch (error) {
     console.error("setArticleStatus:", error);
     return;
   }
@@ -240,15 +251,16 @@ export async function setArticleStatus(formData: FormData): Promise<void> {
 
 export async function deleteArticle(formData: FormData): Promise<void> {
   if (!(await isAdminAuthenticated())) return;
-  const supabase = getSupabaseAdmin();
-  if (!supabase) return;
+  const db = getDb();
+  if (!db) return;
 
   const id = formData.get("id");
   if (typeof id !== "string") return;
 
   const article = await getArticleById(id);
-  const { error } = await supabase.from("articles").delete().eq("id", id);
-  if (error) {
+  try {
+    await db.query(`delete from articles where id = $1`, [id]);
+  } catch (error) {
     console.error("deleteArticle:", error);
     return;
   }

@@ -1,8 +1,7 @@
 -- Publications du site : articles natifs (markdown) et posts LinkedIn
--- référencés par URL (embed officiel). Même modèle de sécurité que `leads` :
--- RLS activée SANS policy publique — toutes les lectures/écritures passent par
--- le serveur Next.js (service role), le backoffice /admin étant protégé par
--- mot de passe côté serveur.
+-- référencés par URL (embed officiel). Accès : uniquement le serveur Next.js
+-- (DATABASE_URL) ; le backoffice /admin est protégé par mot de passe côté
+-- serveur (ADMIN_PASSWORD + cookie signé AUTH_SECRET).
 
 create table if not exists public.articles (
   id uuid primary key default gen_random_uuid(),
@@ -29,6 +28,3 @@ create table if not exists public.articles (
 
 create index if not exists articles_published_idx
   on public.articles (status, published_at desc);
-
-alter table public.articles enable row level security;
--- Aucune policy : seule la service role (serveur) lit et écrit.

@@ -1,11 +1,12 @@
 import "server-only";
 
-import { getSupabaseAdmin } from "./supabase";
+import { getDb } from "./db";
 
 /**
- * Accès aux publications (table `articles`) — service role, serveur uniquement.
- * Chaque helper retourne une valeur vide/nulle si Supabase n'est pas configuré,
- * pour que le site build et tourne sans environnement (page vide propre).
+ * Accès aux publications (table `articles`) — Postgres/Neon, serveur
+ * uniquement. Chaque helper retourne une valeur vide/nulle si la base n'est
+ * pas configurée, pour que le site build et tourne sans environnement
+ * (page vide propre).
  */
 
 export type ArticleType = "article" | "linkedin";
@@ -25,72 +26,74 @@ export type Article = {
   linkedin_url: string | null;
 };
 
-const COLUMNS =
-  "id, created_at, updated_at, published_at, type, status, title, slug, excerpt, content, linkedin_url";
+// Les timestamptz sont renvoyés en ISO 8601 pour rester sérialisables tels
+// quels vers les Client Components (le driver pg les hydrate en Date).
+const COLUMNS = `id, created_at::text, updated_at::text, published_at::text,
+  type, status, title, slug, excerpt, content, linkedin_url`;
 
 /** Publications visibles sur /articles, plus récentes d'abord. */
 export async function getPublishedArticles(): Promise<Article[]> {
-  const supabase = getSupabaseAdmin();
-  if (!supabase) return [];
-  const { data, error } = await supabase
-    .from("articles")
-    .select(COLUMNS)
-    .eq("status", "published")
-    .order("published_at", { ascending: false, nullsFirst: false });
-  if (error) {
+  const db = getDb();
+  if (!db) return [];
+  try {
+    const { rows } = await db.query<Article>(
+      `select ${COLUMNS} from articles
+       where status = 'published'
+       order by published_at desc nulls last`,
+    );
+    return rows;
+  } catch (error) {
     console.error("getPublishedArticles:", error);
     return [];
   }
-  return (data as Article[]) ?? [];
 }
 
 /** Article natif publié, par slug — pour /articles/[slug]. */
 export async function getPublishedArticleBySlug(slug: string): Promise<Article | null> {
-  const supabase = getSupabaseAdmin();
-  if (!supabase) return null;
-  const { data, error } = await supabase
-    .from("articles")
-    .select(COLUMNS)
-    .eq("status", "published")
-    .eq("type", "article")
-    .eq("slug", slug)
-    .maybeSingle();
-  if (error) {
+  const db = getDb();
+  if (!db) return null;
+  try {
+    const { rows } = await db.query<Article>(
+      `select ${COLUMNS} from articles
+       where status = 'published' and type = 'article' and slug = $1`,
+      [slug],
+    );
+    return rows[0] ?? null;
+  } catch (error) {
     console.error("getPublishedArticleBySlug:", error);
     return null;
   }
-  return (data as Article | null) ?? null;
 }
 
 /** Toutes les publications (brouillons compris) — backoffice. */
 export async function getAllArticles(): Promise<Article[]> {
-  const supabase = getSupabaseAdmin();
-  if (!supabase) return [];
-  const { data, error } = await supabase
-    .from("articles")
-    .select(COLUMNS)
-    .order("published_at", { ascending: false, nullsFirst: true })
-    .order("created_at", { ascending: false });
-  if (error) {
+  const db = getDb();
+  if (!db) return [];
+  try {
+    const { rows } = await db.query<Article>(
+      `select ${COLUMNS} from articles
+       order by published_at desc nulls first, created_at desc`,
+    );
+    return rows;
+  } catch (error) {
     console.error("getAllArticles:", error);
     return [];
   }
-  return (data as Article[]) ?? [];
 }
 
 export async function getArticleById(id: string): Promise<Article | null> {
-  const supabase = getSupabaseAdmin();
-  if (!supabase) return null;
-  const { data, error } = await supabase
-    .from("articles")
-    .select(COLUMNS)
-    .eq("id", id)
-    .maybeSingle();
-  if (error) {
+  const db = getDb();
+  if (!db) return null;
+  try {
+    const { rows } = await db.query<Article>(
+      `select ${COLUMNS} from articles where id = $1`,
+      [id],
+    );
+    return rows[0] ?? null;
+  } catch (error) {
     console.error("getArticleById:", error);
     return null;
   }
-  return (data as Article | null) ?? null;
 }
 
 /** Slug URL à partir d'un titre (accents retirés, tirets). */

@@ -2,7 +2,7 @@
 
 Site one-page du cabinet de conseil financier **Expertise 360** (Dakar) : stratégie, risque, financement, formation. Reconstruction complète sur un socle technique possédé et maintenable.
 
-- **Stack** : Next.js (App Router, SSG) · TypeScript strict · Tailwind CSS 4 · Supabase (leads) · Resend (notifications) · lucide-react · next/font (Fraunces + Inter)
+- **Stack** : Next.js (App Router, SSG) · TypeScript strict · Tailwind CSS 4 · Postgres/Neon via Vercel Marketplace (leads + articles) · Resend (notifications) · lucide-react · next/font (Fraunces + Inter)
 - **Design** : palette navy + or exclusivement, pastilles d'icônes or, alternance de fonds clairs/sombres, animations douces respectant `prefers-reduced-motion`.
 
 ## Démarrage
@@ -19,22 +19,21 @@ Sans `.env.local`, le site fonctionne entièrement ; seul l'envoi du formulaire 
 
 | Variable | Rôle |
 | --- | --- |
-| `SUPABASE_URL` | URL du projet Supabase (Dashboard → Project Settings → API) |
-| `SUPABASE_SERVICE_ROLE_KEY` | Clé service role — **serveur uniquement**, jamais exposée au client |
+| `DATABASE_URL` | Chaîne de connexion Postgres — injectée automatiquement par Vercel quand la base Neon est connectée au projet (Storage → Connect Database) |
 | `ADMIN_PASSWORD` | Mot de passe du backoffice `/admin` (articles & posts LinkedIn) |
 | `AUTH_SECRET` | Secret de signature du cookie de session admin (`openssl rand -base64 32`) |
 | `RESEND_API_KEY` | Clé API Resend pour la notification e-mail des leads |
 | `CONTACT_NOTIFICATION_EMAIL` | Adresse qui reçoit les notifications (ex. `contact@expert-360.com`) |
 | `CONTACT_FROM_EMAIL` | Expéditeur (domaine vérifié dans Resend) |
 
-## Base de données (Supabase)
+## Base de données (Neon via Vercel)
 
-Exécuter les migrations `supabase/migrations/` dans l'ordre (SQL Editor du dashboard, ou CLI `supabase db push`) :
+1. Dans Vercel : projet → **Storage** → **Connect Database** → choisir (ou créer) une base **Neon**. `DATABASE_URL` est injectée automatiquement dans le projet.
+2. Exécuter les migrations `db/migrations/` dans l'ordre (SQL Editor du dashboard Neon, ou `psql "$DATABASE_URL" -f db/migrations/000X_….sql`) :
+   - `0001_create_leads.sql` — table `leads` (formulaire de contact)
+   - `0002_create_articles.sql` — table `articles` (page Articles & backoffice)
 
-- `0001_create_leads.sql` — table `leads` (formulaire de contact)
-- `0002_create_articles.sql` — table `articles` (page Articles & backoffice)
-
-Les deux tables ont la RLS activée et **aucune policy publique** : lectures et écritures passent exclusivement par le serveur Next.js (service role).
+La base n'est jamais exposée au navigateur : lectures et écritures passent exclusivement par le serveur Next.js.
 
 ## Articles & backoffice
 
@@ -44,7 +43,7 @@ Les deux tables ont la RLS activée et **aucune policy publique** : lectures et 
 ## Formulaire de contact
 
 `components/ContactForm.tsx` (client) → Server Action `app/actions/contact.ts` :
-validation **zod** côté serveur → insertion Supabase → e-mail Resend (non bloquant) → état succès/erreur affiché et annoncé (`role="status"`, `aria-live`). Honeypot anti-spam + rate-limit en mémoire par IP (5 requêtes / 10 min, best-effort en serverless).
+validation **zod** côté serveur → insertion Postgres → e-mail Resend (non bloquant) → état succès/erreur affiché et annoncé (`role="status"`, `aria-live`). Honeypot anti-spam + rate-limit en mémoire par IP (5 requêtes / 10 min, best-effort en serverless).
 
 **Test réel avant mise en production** : soumettre le formulaire, vérifier la ligne dans `leads` et la réception de l'e-mail.
 
@@ -80,6 +79,7 @@ components/     sections (Header, Hero, Stats, Services, ValueProps, FounderCard
 components/ui/  Section, IconBadge, Button, Tag, Avatar, Reveal, registre d'icônes
 content/        contenu typé (site, services, valueProps, team, sectors, method,
                 stats, contact, footer)
-lib/            schema zod, client Supabase (serveur), rate-limit
-supabase/       migration SQL de la table leads
+lib/            schema zod, pool Postgres (serveur), rate-limit, articles,
+                linkedin (embed), admin-auth (session backoffice)
+db/             migrations SQL (leads, articles)
 ```

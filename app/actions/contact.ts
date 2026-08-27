@@ -4,8 +4,8 @@ import { headers } from "next/headers";
 import { Resend } from "resend";
 import { site } from "@/content/site";
 import { isRateLimited } from "@/lib/rate-limit";
+import { getDb } from "@/lib/db";
 import { leadSchema, type LeadFieldErrors } from "@/lib/schema";
-import { getSupabaseAdmin } from "@/lib/supabase";
 
 export type ContactFormState = {
   status: "idle" | "success" | "error";
@@ -60,22 +60,20 @@ export async function submitContact(
 
   const lead = parsed.data;
 
-  const supabase = getSupabaseAdmin();
-  if (!supabase) {
-    console.error("submitContact: SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY manquants");
+  const db = getDb();
+  if (!db) {
+    console.error("submitContact: DATABASE_URL manquante");
     return { status: "error", message: GENERIC_ERROR };
   }
 
-  const { error } = await supabase.from("leads").insert({
-    nom: lead.nom,
-    organisation: lead.organisation ?? null,
-    email: lead.email,
-    type_mission: lead.type_mission ?? null,
-    message: lead.message,
-  });
-
-  if (error) {
-    console.error("submitContact: insertion Supabase échouée", error);
+  try {
+    await db.query(
+      `insert into leads (nom, organisation, email, type_mission, message)
+       values ($1, $2, $3, $4, $5)`,
+      [lead.nom, lead.organisation ?? null, lead.email, lead.type_mission ?? null, lead.message],
+    );
+  } catch (error) {
+    console.error("submitContact: insertion Postgres échouée", error);
     return { status: "error", message: GENERIC_ERROR };
   }
 

@@ -35,9 +35,9 @@ export const servicePages: ServicePage[] = [
     seoTitle: "Gestion des risques financiers — BCEAO, COBAC, Bâle II/III",
     seoDescription:
       "Expertise 360 (Dakar) conçoit et renforce les dispositifs de gestion des risques des banques et IMF : crédit, liquidité, marché, opérationnel — conformes aux normes BCEAO, COBAC et Bâle II/III.",
-    title: "Gestion des Risques Financiers",
+    title: "Gestion des Risques",
     intro:
-      "Mise en place et renforcement de dispositifs de gestion des risques (crédit, liquidité, marché, opérationnel) conformes aux normes BCEAO, COBAC et standards internationaux Bâle II/III.",
+      "Mise en place et renforcement de dispositifs de gestion des risques (crédit, liquidité, marché, opérationnel) conformes aux normes BCEAO, COBAC et standards internationaux Bâle II/III. Appui à l'opérationnalisation des trois lignes de maîtrise par la mise en place des politiques, procédures et outils du contrôle permanent de second niveau.",
     offerTitle: "Ce que nous mettons en place",
     offers: [
       {
@@ -70,9 +70,15 @@ export const servicePages: ServicePage[] = [
         description:
           "Formation des équipes risques et des instances de gouvernance pour pérenniser le dispositif au sein de l'institution.",
       },
+      {
+        title: "Mise en place et opérationnalisation des lignes de maîtrise",
+        icon: "layers",
+        description:
+          "Appui à la mise en place des politiques, procédures et outils de mise en œuvre des trois lignes de maîtrise telles que préconisées par l'Institute of Internal Auditors.",
+      },
     ],
     audiences: [
-      "Banques commerciales",
+      "Banques",
       "Institutions de microfinance (IMF)",
       "Fonds d'investissement",
       "Régulateurs & Banques centrales",
@@ -120,7 +126,7 @@ export const servicePages: ServicePage[] = [
     audiences: [
       "Fonds d'investissement",
       "Organisations internationales",
-      "Banques commerciales",
+      "Banques",
       "Institutions de microfinance (IMF)",
     ],
     ctaTitle: "Besoin d'un diagnostic ou d'une due diligence ?",
@@ -164,7 +170,7 @@ export const servicePages: ServicePage[] = [
       },
     ],
     audiences: [
-      "PME & Entreprises",
+      "PME",
       "Institutions de microfinance (IMF)",
       "Agrobusiness & Finance agricole",
       "Organisations internationales",

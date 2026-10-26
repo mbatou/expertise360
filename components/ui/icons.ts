@@ -8,6 +8,7 @@ import {
   Flag,
   Globe,
   GraduationCap,
+  Layers,
   HandCoins,
   Landmark,
   Leaf,
@@ -60,6 +61,7 @@ const registry: Record<string, LucideIcon> = {
   "sliders-horizontal": SlidersHorizontal,
   "graduation-cap": GraduationCap,
   flag: Flag,
+  layers: Layers,
 };
 
 export function getIcon(name: string): LucideIcon {

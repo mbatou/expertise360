@@ -21,19 +21,19 @@ export const valueProps: ValueProp[] = [
     title: "Standards internationaux",
     icon: "badge-check",
     description:
-      "Maîtrise des normes Bâle, BCEAO, COBAC, IFRS et des meilleures pratiques mondiales du secteur financier.",
+      "Maîtrise des normes Bâle, BCEAO, COBAC, IFRS et des meilleures pratiques mondiales de l'inclusion financière.",
   },
   {
     title: "Connaissance du terrain africain",
     icon: "map-pin",
     description:
-      "Compréhension fine des marchés UEMOA, des contraintes de liquidité et des dynamiques des PME locales.",
+      "Compréhension fine des écosystèmes, des contraintes et des dynamiques des institutions financières et des PME.",
   },
   {
     title: "Réseau institutionnel",
     icon: "globe",
     description:
-      "Relations établies avec les bailleurs multilatéraux, fonds d'impact et institutions de développement (Banque Mondiale, UNCDF…).",
+      "Relations établies avec les bailleurs multilatéraux, fonds d'impact et institutions de développement (Banque Mondiale, UNCDF, Coopération allemande…).",
   },
   {
     title: "Approche sur mesure",
@@ -45,6 +45,6 @@ export const valueProps: ValueProp[] = [
     title: "Transfert de compétences",
     icon: "graduation-cap",
     description:
-      "Toutes nos interventions intègrent un volet formation pour pérenniser les acquis au sein des équipes.",
+      "Toutes nos interventions intègrent un volet coaching pour pérenniser les acquis au sein des équipes.",
   },
 ];

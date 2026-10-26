@@ -7,15 +7,15 @@ export type Sector = {
 
 export const sectorsIntro = {
   eyebrow: "Nos marchés cibles",
-  title: "Secteurs Accompagnés",
+  title: "Secteurs et Activités accompagnés",
   description:
-    "Nous intervenons auprès d'un large spectre d'organisations dans le secteur financier africain et international.",
+    "Nous intervenons auprès d'un large spectre d'organisations publiques et privées évoluant dans le secteur financier et dans le développement des PME en Afrique et à l'international.",
 } as const;
 
 export const sectors: Sector[] = [
-  { title: "Banques commerciales", icon: "landmark" },
+  { title: "Banques", icon: "landmark" },
   { title: "Institutions de microfinance (IMF)", icon: "users" },
-  { title: "PME & Entreprises", icon: "briefcase" },
+  { title: "PME", icon: "briefcase" },
   { title: "Agrobusiness & Finance agricole", icon: "wheat" },
   { title: "Organisations internationales", icon: "globe" },
   { title: "Fonds d'investissement", icon: "trending-up" },

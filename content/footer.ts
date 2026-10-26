@@ -42,6 +42,6 @@ export const footer = {
       ],
     },
   ],
-  location: "Dakar, Sénégal · Zone UEMOA · International",
+  location: "Rufisque Ouest, Sénégal · Zone UEMOA · International",
   copyright: `© ${new Date().getFullYear()} Expertise 360 — Tous droits réservés`,
 } as const;

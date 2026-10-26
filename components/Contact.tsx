@@ -1,4 +1,4 @@
-import { Globe, Mail, MapPin } from "lucide-react";
+import { Globe, Mail, MapPin, Phone } from "lucide-react";
 import { contactIntro } from "@/content/contact";
 import { site } from "@/content/site";
 import { ContactForm } from "./ContactForm";
@@ -28,6 +28,15 @@ export function Contact() {
                   className="font-medium transition-colors hover:text-gold-soft"
                 >
                   {site.email}
+                </a>
+              </li>
+              <li className="flex items-center gap-3">
+                <Phone className="h-5 w-5 shrink-0 text-gold" aria-hidden="true" />
+                <a
+                  href={site.phoneHref}
+                  className="font-medium transition-colors hover:text-gold-soft"
+                >
+                  {site.phone}
                 </a>
               </li>
               <li className="flex items-center gap-3">

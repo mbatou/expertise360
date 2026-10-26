@@ -48,9 +48,11 @@ const jsonLd = {
   description: seo.description,
   url: site.url,
   email: site.email,
+  telephone: "+221710480606",
   areaServed: site.areaServed,
   address: {
     "@type": "PostalAddress",
+    streetAddress: site.address.street,
     addressLocality: site.address.city,
     addressCountry: "SN",
   },

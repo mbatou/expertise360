@@ -41,7 +41,7 @@ export function Hero() {
           <span className="text-gold">{hero.titleHighlight}</span>
         </h1>
 
-        <ul className="mt-6 flex flex-wrap items-center justify-center gap-2.5" aria-label="Nos quatre piliers">
+        <ul className="mt-6 flex flex-wrap items-center justify-center gap-2.5" aria-label="Nos cinq piliers">
           {hero.pillars.map((pillar) => (
             <li
               key={pillar}

@@ -20,14 +20,14 @@ export const method: MethodStep[] = [
     title: "Diagnostic",
     icon: "search",
     description:
-      "Analyse approfondie de la situation actuelle : état financier, environnement réglementaire, positionnement concurrentiel et enjeux clés.",
+      "Analyse approfondie de la situation actuelle : situation financière, marché, environnement réglementaire, positionnement concurrentiel, enjeux clés, etc.",
   },
   {
     step: 2,
     title: "Conception",
     icon: "pen-tool",
     description:
-      "Élaboration de solutions sur mesure : plan stratégique, dispositif de gestion des risques, produit financier ou programme de formation adapté.",
+      "Élaboration de solutions sur mesure : plan stratégique, dispositif de gestion des risques, produit financier et programme de coaching adapté.",
   },
   {
     step: 3,

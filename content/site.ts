@@ -10,13 +10,16 @@ export const site = {
   url: "https://expert-360.com",
   // §13.5 : e-mail aligné sur le domaine réel (jamais @expertise360.com).
   email: "contact@expert-360.com",
-  location: "Dakar, Sénégal · Afrique de l'Ouest",
+  phone: "(221) 71 048 06 06",
+  phoneHref: "tel:+221710480606",
+  location: "Villa 171 Sipres Al Azhar, Rufisque Ouest – Sénégal",
   coverage: "Sénégal · Zone UEMOA · International",
   address: {
-    city: "Dakar",
+    street: "Villa 171 Sipres Al Azhar",
+    city: "Rufisque Ouest",
     country: "Sénégal",
   },
-  founder: "Djibril Mbengue",
+  founder: "Djibril Maguette Mbengue",
   areaServed: "Afrique de l'Ouest",
 } as const;
 
@@ -36,16 +39,16 @@ export const nav: NavItem[] = [
 export const navCta: NavItem = { label: "Nous contacter", href: "/#contact" };
 
 export const hero = {
-  eyebrow: "Cabinet de Conseil Financier — Dakar · Afrique",
+  eyebrow: "Cabinet de Conseil",
   // H1 : « l'excellence financière » mis en valeur en or (§2).
   titlePrefix: "Votre partenaire stratégique pour ",
   titleHighlight: "l'excellence financière",
-  // Les 4 piliers (§2), rendus en chips.
-  pillars: ["Stratégie", "Risque", "Financement", "Formation"],
+  // Les 5 piliers, rendus en chips (ordre demandé par le client).
+  pillars: ["Diagnostic", "Stratégie", "Gestion des risques", "Financement", "Formation"],
   // Version condensée du paragraphe de l'inventaire (allégée à la demande
   // du client — le texte long restait trop dense dans le hero).
   paragraph:
-    "Nous accompagnons banques, IMF, PME et organisations internationales — avec une vision à 360° et plus de 28 ans d'expérience terrain.",
+    "Nous accompagnons les institutions financières, les PME et les ONG et les organisations internationales avec une vision à 360° et plus de 30 années d'expérience terrain.",
   primaryCta: { label: "Découvrir nos services", href: "#services" },
   secondaryCta: { label: "Prendre rendez-vous", href: "#contact" },
 } as const;

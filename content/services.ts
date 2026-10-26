@@ -30,11 +30,11 @@ export const services: Service[] = [
   },
   {
     id: "gestion-risques",
-    title: "Gestion des Risques Financiers",
+    title: "Gestion des Risques",
     icon: "shield-check",
     href: "/services/gestion-risques",
     description:
-      "Mise en place et renforcement de dispositifs de gestion des risques (crédit, liquidité, marché, opérationnel) conformes aux normes BCEAO, COBAC et standards internationaux Bâle II/III.",
+      "Mise en place et renforcement de dispositifs de gestion des risques (crédit, liquidité, marché, opérationnel) conformes aux normes BCEAO, COBAC et standards internationaux Bâle II/III. Appui à l'opérationnalisation des trois lignes de maîtrise par la mise en place des politiques, procédures et outils du contrôle permanent de second niveau.",
   },
   {
     id: "produits-financiers",
@@ -78,11 +78,11 @@ export const services: Service[] = [
     title: "Inclusion Financière & Finance Verte",
     icon: "sprout",
     description:
-      "Études, évaluations et stratégies d'inclusion financière ; développement de produits et d'indicateurs de performance pour la finance verte et l'investissement à impact social et environnemental.",
+      "Études, évaluations et stratégies d'inclusion financière ; développement de produits et d'indicateurs de performance pour la finance verte et l'investissement à impact social et environnemental. Capturer la contribution des institutions financières dans l'atteinte des objectifs de développement durable (ODD).",
   },
   {
     id: "conseil-imf",
-    title: "Conseil aux Institutions de Microfinance",
+    title: "Appui-conseil aux Institutions de Microfinance",
     icon: "building-2",
     description:
       "Appui institutionnel global aux IMF : gouvernance, gestion du portefeuille à risque, conformité réglementaire, digitalisation des opérations et amélioration de la performance sociale.",
